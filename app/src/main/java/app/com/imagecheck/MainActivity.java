@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 //    please add your userKey
 
-    String userKey = "--YOUR KEY--";
+   // String userKey = "--YOUR KEY--";
 
     //    please add  your userId
     String userId = "--YOUR USER ID--";
@@ -77,12 +77,18 @@ public class MainActivity extends AppCompatActivity {
         add_images.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
-                Params params = new Params();
-                params.setCaptureLimit(2);
-                params.setPickerLimit(2);
-                intent.putExtra(Constants.KEY_PARAMS, params);
-                startActivityForResult(intent, Constants.TYPE_MULTI_PICKER);
+                if (userId.equalsIgnoreCase("--YOUR USER ID--")) {
+                    Toast.makeText(MainActivity.this, "Please add your UserId", Toast.LENGTH_LONG).show();
+                } else {
+
+                    Toast.makeText(MainActivity.this, "Please select two images", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
+                    Params params = new Params();
+                    params.setCaptureLimit(2);
+                    params.setPickerLimit(2);
+                    intent.putExtra(Constants.KEY_PARAMS, params);
+                    startActivityForResult(intent, Constants.TYPE_MULTI_PICKER);
+                }
             }
         });
     }
@@ -140,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
             MultipartBody.Part body1 = MultipartBody.Part.createFormData("img_2", file.getName(), requestFile1);
 
 //
-            apiService.uploadImages(userKey, userId, body, body1).enqueue(new Callback<ImagesUpload>() {
+            apiService.uploadImages(userId, body, body1).enqueue(new Callback<ImagesUpload>() {
                 @Override
                 public void onResponse(Call<ImagesUpload> call, Response<ImagesUpload> response) {
 
