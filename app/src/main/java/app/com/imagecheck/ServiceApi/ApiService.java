@@ -15,8 +15,7 @@ public interface ApiService {
 
     @Multipart
     @POST("compare_faces?face_det=1")
-    Call<ImagesUpload> uploadImages(@Header("user_key") String key,
-                                    @Header("user_id") String user_id,
+    Call<ImagesUpload> uploadImages(@Header("user_id") String user_id,
                                     @Part MultipartBody.Part imageFile1,
                                     @Part MultipartBody.Part imageFile2);
 
