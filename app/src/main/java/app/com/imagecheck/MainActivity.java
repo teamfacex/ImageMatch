@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
             MultipartBody.Part body1 = MultipartBody.Part.createFormData("img_2", file.getName(), requestFile1);
 
 //
-            apiService.uploadImages(userId, body, body1).enqueue(new Callback<ImagesUpload>() {
+                      apiService.uploadImages(userId, body, body1).enqueue(new Callback<ImagesUpload>() {
                 @Override
                 public void onResponse(Call<ImagesUpload> call, Response<ImagesUpload> response) {
 
@@ -158,28 +158,10 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.e("res", response.body().toString());
 
-                    if (response.raw().code() == 200) {
-
-                        String jsonResponse = new Gson().toJson(response.body());
-                        try {
-                            JSONObject jsonObject = new JSONObject(jsonResponse);
-                            if (jsonObject.toString().contains("confidence")) {
-//
-                                output_tv.setText("Output:" + response.body().getConfidence());
-                            } else if (jsonObject.toString().contains("error")) {
-                                output_tv.setText("Output:" + response.body().getMsg());
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-//                        JsonObject post = new JsonObject().get(response.body().toString();
-//                        if (post.toString().contains("confidence")) {
-//
-//                            output_tv.setText("Output:" + response.body().getConfidence());
-//                        } else if (post.toString().contains("error")) {
-//                            output_tv.setText("Output:" + response.body().getMsg());
-//                        }
+                    if (response.raw().code() == 200 && response.body().getSuccess()) {
+                        output_tv.setText("Output:" + response.body().getData().getScore());
+                    } else  {
+                        output_tv.setText("Output:" + response.body().getMessage());
                     }
 
                 }
