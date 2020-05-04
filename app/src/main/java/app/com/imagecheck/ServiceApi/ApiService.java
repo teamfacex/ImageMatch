@@ -14,7 +14,7 @@ import retrofit2.http.Part;
 public interface ApiService {
 
     @Multipart
-    @POST("match_faces")
+    @POST("compare_faces")
     Call<ImagesUpload> uploadImages(@Header("user_id") String user_id,
                                     @Part MultipartBody.Part imageFile1,
                                     @Part MultipartBody.Part imageFile2);
