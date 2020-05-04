@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
-    @SerializedName("score")
+    @SerializedName("confidence")
     @Expose
     private String score;
     @SerializedName("status")
